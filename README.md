@@ -1,4 +1,4 @@
-# Real-Time Ambulance Tracking System
+# Ambulance Traffic Management System
 
 A smart ambulance routing system that helps drivers reach hospitals faster by providing the shortest path and dynamically controlling traffic signals along the route.
 
