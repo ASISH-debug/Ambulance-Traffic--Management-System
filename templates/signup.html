@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+    <aside class="auth-story">
+        <div class="auth-story-inner">
+            <span class="auth-kicker">Mission Ready Access</span>
+            <h1>🚑 Saving Lives, One Second Matters</h1>
+            <p class="auth-lead">Fast response. Smart routing. Better care.</p>
+
+            <div class="quote-panel">
+                <p id="rotating-quote" class="rotating-quote">Every second counts ⏱️</p>
+            </div>
+
+            <div class="ambulance-visual">
+                <img
+                    src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80"
+                    alt="Emergency medical support team"
+                >
+            </div>
+        </div>
+    </aside>
+
+    <section class="auth-box auth-form-panel signup-panel">
+        <div class="auth-header">
+            <span class="auth-kicker">Create Account</span>
+            <h2>Join the emergency network</h2>
+            <p class="auth-subtitle">Set up secure access for dispatch teams, drivers, and control room administrators.</p>
+        </div>
+
+        <form method="POST">
+            <div class="auth-field">
+                <label for="username">Username</label>
+                <div class="input-shell">
+                    <span class="input-icon">👤</span>
+                    <input
+                        id="username"
+                        name="username"
+                        placeholder="Choose a username"
+                        value="{{ request.form.get('username', '') }}"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="auth-grid">
+                <div class="auth-field">
+                    <label for="email">Email</label>
+                    <div class="input-shell">
+                        <span class="input-icon">📧</span>
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="name@example.com"
+                            value="{{ request.form.get('email', '') }}"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-shell">
+                        <span class="input-icon">📱</span>
+                        <input
+                            id="phone"
+                            type="tel"
+                            name="phone"
+                            placeholder="+91 98765 43210"
+                            value="{{ request.form.get('phone', '') }}"
+                            required
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-grid">
+                <div class="auth-field">
+                    <label for="password">Password</label>
+                    <div class="input-shell">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            placeholder="Minimum 6 characters"
+                            required
+                        >
+                        <button class="password-toggle" type="button" data-toggle-password="password" aria-label="Show password">👁</button>
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="role">Role</label>
+                    <div class="input-shell select-shell">
+                        <span class="input-icon">🩺</span>
+                        <select id="role" name="role" required>
+                            <option value="">Select role</option>
+                            <option value="admin" {% if request.form.get('role') == 'admin' %}selected{% endif %}>Admin</option>
+                            <option value="driver" {% if request.form.get('role') == 'driver' %}selected{% endif %}>Driver</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <p>Already a user? <a href="/login">Login</a></p>
+    </section>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const signupQuotes = [
+    "Every second counts ⏱️",
+    "Your route can save a life ❤️",
+    "Smart traffic, faster care 🚑"
+];
+
+function setupQuoteRotation(quotes) {
+    const quoteElement = document.getElementById('rotating-quote');
+    if (!quoteElement || !quotes.length) return;
+
+    let currentIndex = 0;
+    window.setInterval(() => {
+        currentIndex = (currentIndex + 1) % quotes.length;
+        quoteElement.classList.remove('quote-visible');
+        window.setTimeout(() => {
+            quoteElement.textContent = quotes[currentIndex];
+            quoteElement.classList.add('quote-visible');
+        }, 220);
+    }, 3000);
+}
+
+function setupPasswordToggles() {
+    document.querySelectorAll('[data-toggle-password]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const input = document.getElementById(button.dataset.togglePassword);
+            if (!input) return;
+
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            button.textContent = isPassword ? '🙈' : '👁';
+        });
+    });
+}
+
+window.addEventListener('load', () => {
+    const quoteElement = document.getElementById('rotating-quote');
+    if (quoteElement) {
+        quoteElement.classList.add('quote-visible');
+    }
+    setupQuoteRotation(signupQuotes);
+    setupPasswordToggles();
+});
+</script>
+{% endblock %}

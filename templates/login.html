@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+    <aside class="auth-story">
+        <div class="auth-story-inner">
+            <span class="auth-kicker">Emergency Response Platform</span>
+            <h1>🚑 Saving Lives, One Second Matters</h1>
+            <p class="auth-lead">Fast response. Smart routing. Better care.</p>
+
+            <div class="quote-panel">
+                <p id="rotating-quote" class="rotating-quote">Every second counts ⏱️</p>
+            </div>
+
+            <div class="ambulance-visual">
+                <img
+                    src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
+                    alt="Ambulance emergency response"
+                >
+            </div>
+        </div>
+    </aside>
+
+    <section class="auth-box auth-form-panel">
+        <div class="auth-header">
+            <span class="auth-kicker">Welcome Back</span>
+            <h2>Login to continue</h2>
+            <p class="auth-subtitle">Access real-time ambulance routing, green corridor controls, and emergency operations tracking.</p>
+        </div>
+
+        <form method="POST">
+            <div class="auth-field">
+                <label for="username">Username</label>
+                <div class="input-shell">
+                    <span class="input-icon">👤</span>
+                    <input id="username" name="username" placeholder="Enter your username" required>
+                </div>
+            </div>
+
+            <div class="auth-field">
+                <label for="password">Password</label>
+                <div class="input-shell">
+                    <span class="input-icon">🔒</span>
+                    <input id="password" type="password" name="password" placeholder="Enter your password" required>
+                    <button class="password-toggle" type="button" data-toggle-password="password" aria-label="Show password">👁</button>
+                </div>
+            </div>
+
+            <div class="auth-meta">
+                <label class="remember-wrap">
+                    <input type="checkbox" name="remember_me">
+                    <span>Remember Me</span>
+                </label>
+                <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>New user? <a href="/signup">Signup</a></p>
+    </section>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const loginQuotes = [
+    "Every second counts ⏱️",
+    "Your route can save a life ❤️",
+    "Smart traffic, faster care 🚑"
+];
+
+function setupQuoteRotation(quotes) {
+    const quoteElement = document.getElementById('rotating-quote');
+    if (!quoteElement || !quotes.length) return;
+
+    let currentIndex = 0;
+    window.setInterval(() => {
+        currentIndex = (currentIndex + 1) % quotes.length;
+        quoteElement.classList.remove('quote-visible');
+        window.setTimeout(() => {
+            quoteElement.textContent = quotes[currentIndex];
+            quoteElement.classList.add('quote-visible');
+        }, 220);
+    }, 3000);
+}
+
+function setupPasswordToggles() {
+    document.querySelectorAll('[data-toggle-password]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const input = document.getElementById(button.dataset.togglePassword);
+            if (!input) return;
+
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            button.textContent = isPassword ? '🙈' : '👁';
+        });
+    });
+}
+
+window.addEventListener('load', () => {
+    const quoteElement = document.getElementById('rotating-quote');
+    if (quoteElement) {
+        quoteElement.classList.add('quote-visible');
+    }
+    setupQuoteRotation(loginQuotes);
+    setupPasswordToggles();
+});
+</script>
+{% endblock %}

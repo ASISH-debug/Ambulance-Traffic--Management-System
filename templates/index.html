@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Smart Ambulance Traffic Management System{% endblock %}
+
+{% block content %}
+<section class="landing-shell">
+    <section class="hero-panel">
+        <div class="hero-copy">
+            <span class="eyebrow">Emergency Mobility Platform</span>
+            <h1>🚑 Smart Ambulance Traffic Management System</h1>
+            <p class="hero-subtitle">AI-powered emergency routing with green corridor technology for faster, safer hospital arrivals.</p>
+            <div class="hero-actions">
+                <a href="/login" class="hero-button primary">Login</a>
+                <a href="/signup" class="hero-button secondary">Get Started</a>
+            </div>
+        </div>
+        <div class="hero-visual glass-card">
+            <div class="hero-stat">
+                <span>Average response uplift</span>
+                <strong>32%</strong>
+            </div>
+            <div class="hero-stat">
+                <span>Smart junction sync</span>
+                <strong>Real-Time</strong>
+            </div>
+            <div class="hero-stat">
+                <span>Priority route engine</span>
+                <strong>OSRM + Live ETA</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="landing-section">
+        <div class="section-heading">
+            <span class="eyebrow">Core Features</span>
+            <h2>Built for emergency operations teams</h2>
+        </div>
+        <div class="landing-grid">
+            <article class="glass-card feature-card">
+                <h3>🚦 Smart Traffic Control</h3>
+                <p>Generate green corridors dynamically and clear junctions in sync with the live ambulance route.</p>
+            </article>
+            <article class="glass-card feature-card">
+                <h3>📍 Real-time GPS Tracking</h3>
+                <p>Monitor live location, movement status, and hospital arrival progress from a unified dashboard.</p>
+            </article>
+            <article class="glass-card feature-card">
+                <h3>🧭 Intelligent Routing</h3>
+                <p>Use road-aware routing with dynamic signal placement so the trip follows realistic streets, not straight lines.</p>
+            </article>
+            <article class="glass-card feature-card">
+                <h3>🚨 Emergency Priority Mode</h3>
+                <p>Escalate urgent trips with faster signal clearance, stronger alerts, and a high-priority visual state.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="landing-section">
+        <div class="section-heading">
+            <span class="eyebrow">How It Works</span>
+            <h2>Simple flow, fast response</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="glass-card step-card"><strong>Step 1</strong><p>Select Hospital</p></div>
+            <div class="glass-card step-card"><strong>Step 2</strong><p>Start Ambulance</p></div>
+            <div class="glass-card step-card"><strong>Step 3</strong><p>Signals turn green</p></div>
+            <div class="glass-card step-card"><strong>Step 4</strong><p>Reach faster</p></div>
+        </div>
+    </section>
+
+    <footer class="landing-footer">
+        <p>Smart Ambulance Traffic Management System</p>
+        <p>Built for live demo and emergency operations workflows.</p>
+    </footer>
+</section>
+{% endblock %}

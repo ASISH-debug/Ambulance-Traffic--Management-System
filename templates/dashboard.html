@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+>
+
+<section class="dashboard-shell" data-role="{{ role }}">
+    <div class="dashboard-hero">
+        <div>
+            <span class="eyebrow">{{ role|title }} Console</span>
+            <h1>🚑 Ambulance Dashboard</h1>
+            <p class="hero-subtitle">Coordinate routing, monitor green corridor readiness, and accelerate emergency arrivals.</p>
+        </div>
+        <div class="hero-actions dashboard-actions">
+            <button id="emergencyBtn" class="hero-button emergency-button" type="button">🚨 Emergency Mode</button>
+        </div>
+    </div>
+
+    <div class="map-panel">
+        <div id="map" aria-label="Ambulance live map"></div>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h3>📍 GPS</h3>
+            <p>Lat: <span id="lat">--</span></p>
+            <p>Lng: <span id="lng">--</span></p>
+            <p>Speed: <span id="speed">--</span> km/h</p>
+        </div>
+
+        <div class="card">
+            <h3>🏥 Hospital</h3>
+            <select id="hospital-select">
+                <option value="">Select Hospital</option>
+                <option value="17.4239,78.4738">Apollo Hospital</option>
+                <option value="17.3430,78.5270">Yashoda Hospital</option>
+                <option value="17.4170,78.4450">KIMS Hospital</option>
+                <option value="17.3850,78.5500">Continental Hospital</option>
+            </select>
+            <button id="startBtn" class="start-button" type="button" disabled>🚑 Start Ambulance</button>
+            <p class="helper-text">Select a hospital first, then start the ambulance to activate route guidance and junction control.</p>
+        </div>
+
+        <div class="card">
+            <h3>📌 Trip Status</h3>
+            <p>Status: <span id="trip-status" class="status-pill idle">Idle</span></p>
+            <p>Distance: <span id="distance">0.00</span> km</p>
+            <p>ETA: <span id="eta">0</span> min</p>
+        </div>
+
+        <div class="card corridor-card">
+            <div class="corridor-header">
+                <h3>🚦 Green Corridor Status</h3>
+                <span id="corridor-state" class="corridor-pill">Standby</span>
+            </div>
+            <p><span id="corridor-cleared">0</span> of <span id="corridor-total">0</span> junctions cleared</p>
+            <div class="progress-track" aria-label="Green corridor progress">
+                <div id="corridor-progress" class="progress-fill"></div>
+            </div>
+            <p id="corridor-percent" class="progress-text">0% active</p>
+        </div>
+
+        {% if role == 'admin' %}
+        <div class="card admin-card">
+            <h3>📊 Analytics</h3>
+            <p>Total signals cleared: <span id="analytics-signals">0</span></p>
+            <p>Distance covered: <span id="distance-covered">0.00</span> km</p>
+            <p>Live ETA: <span id="analytics-eta">0</span> min</p>
+        </div>
+
+        <div class="card admin-card">
+            <h3>🛠 Signal Control Panel</h3>
+            <p>Role: <span class="status-pill active">Admin</span></p>
+            <p>Emergency mode: <span id="emergency-state">Off</span></p>
+            <p>Route junctions: <span id="admin-junctions">0</span></p>
+            <p>Priority status: <span id="priority-status">Normal corridor</span></p>
+        </div>
+        {% else %}
+        <div class="card driver-card">
+            <h3>🧭 Driver Navigation</h3>
+            <p>Role: <span class="status-pill active">Driver</span></p>
+            <p>Next action: Select destination, enable route, and follow live guidance.</p>
+            <p>Emergency mode: <span id="emergency-state">Off</span></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+></script>
+<script src="/static/script.js"></script>
+{% endblock %}
